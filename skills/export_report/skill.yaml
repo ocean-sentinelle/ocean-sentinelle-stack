@@ -1,0 +1,26 @@
+{
+  "id": "export_report",
+  "name": "Export Report (MD)",
+  "version": "1.0.0",
+  "purpose": "Générer une note/fiche en Markdown avec traçabilité + statut vérité.",
+  "permissions": [
+    "postgres.read",
+    "vector.read"
+  ],
+  "truth_rules": "skills/_shared/truth_rules.md",
+  "logging": {
+    "format": "json",
+    "events": [
+      "start",
+      "end",
+      "error"
+    ]
+  },
+  "human_gate": {
+    "required": false,
+    "when": [
+      "publish_wordpress",
+      "send_email"
+    ]
+  }
+}

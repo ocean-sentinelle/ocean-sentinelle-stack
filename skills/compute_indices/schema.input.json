@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "site_id": {
+      "type": "string"
+    },
+    "window_days": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 60,
+      "default": 30
+    },
+    "temp_c": {
+      "type": "number"
+    },
+    "ph_total": {
+      "type": "number"
+    },
+    "salinity_psu": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "site_id",
+    "temp_c",
+    "ph_total",
+    "salinity_psu"
+  ]
+}

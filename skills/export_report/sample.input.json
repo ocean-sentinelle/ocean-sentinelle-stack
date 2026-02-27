@@ -1,0 +1,60 @@
+{
+  "title": "Note test — Site demo",
+  "zone_id": "site_demo_01",
+  "zone_type": "site",
+  "period": "30 derniers jours",
+  "key_findings": [
+    "Risque modéré (démo) dominé par IT et IA.",
+    "Confiance moyenne (données/proxies de démonstration)."
+  ],
+  "indicators": [
+    {
+      "indicator_id": "IT",
+      "value": 0.52,
+      "unit": null,
+      "truth_status": "inferred",
+      "confidence": "medium",
+      "provenance": {
+        "data_version": "v1.0.0",
+        "model_version": "v1.0.0",
+        "scenario_version": null
+      }
+    },
+    {
+      "indicator_id": "IA",
+      "value": 0.42,
+      "unit": null,
+      "truth_status": "inferred",
+      "confidence": "medium",
+      "provenance": {
+        "data_version": "v1.0.0",
+        "model_version": "v1.0.0",
+        "scenario_version": null
+      }
+    },
+    {
+      "indicator_id": "IRisk",
+      "value": 0.26,
+      "unit": null,
+      "truth_status": "inferred",
+      "confidence": "medium",
+      "provenance": {
+        "data_version": "v1.0.0",
+        "model_version": "v1.0.0",
+        "scenario_version": null
+      }
+    }
+  ],
+  "limitations": [
+    "Démonstrateur : règles de scoring simplifiées, non calibrées terrain.",
+    "Pas de données carbonatées complètes (Ωarag/pCO₂/TA/DIC)."
+  ],
+  "sources": [
+    {
+      "source_name": "Données de démonstration (bootstrap)",
+      "source_date": null,
+      "notes": "À remplacer par sources Ifremer/Copernicus."
+    }
+  ],
+  "output_path": "/app/runtime/report_site_demo_01.md"
+}

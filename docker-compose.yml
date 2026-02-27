@@ -1,0 +1,63 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: os_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./services/api
+    container_name: os_api
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      API_LOG_LEVEL: ${API_LOG_LEVEL:-info}
+      API_JWT_SECRET: ${API_JWT_SECRET}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    build: ./services/worker
+    container_name: os_worker
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      WORKER_LOG_LEVEL: ${WORKER_LOG_LEVEL:-info}
+    volumes:
+      - ./skills:/app/skills:ro
+      - ./runtime:/app/runtime
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  mcp:
+    build: ./services/mcp
+    container_name: os_mcp
+    environment:
+      MCP_PORT: ${MCP_PORT:-8787}
+      MCP_ADMIN_TOKEN: ${MCP_ADMIN_TOKEN}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      WP_BASE_URL: ${WP_BASE_URL}
+      WP_APP_USER: ${WP_APP_USER}
+      WP_APP_PASSWORD: ${WP_APP_PASSWORD}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "${MCP_PORT:-8787}:8787"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pg_data:

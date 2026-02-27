@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: os_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./services/postgres/init:/docker-entrypoint-initdb.d:ro
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./services/api
+    container_name: os_api
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      API_LOG_LEVEL: ${API_LOG_LEVEL:-info}
+      API_JWT_SECRET: ${API_JWT_SECRET}
+    networks: [internal]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    build: ./services/worker
+    container_name: os_worker
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      WORKER_LOG_LEVEL: ${WORKER_LOG_LEVEL:-info}
+    volumes:
+      - ./skills:/app/skills:ro
+      - ./runtime:/app/runtime
+    networks: [internal]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  mcp:
+    build: ./services/mcp
+    container_name: os_mcp
+    environment:
+      MCP_PORT: ${MCP_PORT:-8787}
+      MCP_ADMIN_TOKEN: ${MCP_ADMIN_TOKEN}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      WP_BASE_URL: ${WP_BASE_URL}
+      WP_APP_USER: ${WP_APP_USER}
+      WP_APP_PASSWORD: ${WP_APP_PASSWORD}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    networks: [internal]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  caddy:
+    image: caddy:2
+    container_name: os_caddy
+    environment:
+      PRIMARY_DOMAIN: ${PRIMARY_DOMAIN}
+      SECONDARY_DOMAIN: ${SECONDARY_DOMAIN}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    ports:
+      - "8881:80"
+      - "8444:443"
+    volumes:
+      - ./services/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./services/frontend/dist:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [internal]
+
+networks:
+  internal:
+    external: true
+    name: oceansentinelle_prod_mvp_v2_internal
+
+volumes:
+  pg_data:
+  caddy_data:
+  caddy_config:

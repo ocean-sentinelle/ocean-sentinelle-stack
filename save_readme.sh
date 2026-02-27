@@ -1,7 +1,7 @@
-<<<<<<< HEAD
-# ocean-sentinelle-stack
-Infrastructure souveraine de surveillance côtière Ocean Sentinel : ingestion de données environnementales, calculs Ωarag/IOB, API centralisée, observabilité complète et déploiement Docker reproductible orienté audit et résilience.
-=======
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat > README.md <<'EOF'
 # 🛰️ OCÉAN-SENTINELLE (v14.0)
 **Plateforme souveraine de surveillance et d’expertise de l’acidification océanique**
 
@@ -46,4 +46,6 @@ docker compose -f docker-compose.prod.yml up -d --build
 Administrateur : **admin@oceansentinelle.fr**
 
 > « Ce que l’on ne mesure pas, on ne peut pas le protéger. »
->>>>>>> 2b92251 (chore: initial commit)
+EOF
+
+echo "README.md updated"

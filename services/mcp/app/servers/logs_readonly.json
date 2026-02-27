@@ -1,0 +1,7 @@
+{
+  "name": "logs_readonly",
+  "type": "logs",
+  "mode": "read-only",
+  "env": [],
+  "notes": "Expose curated logs only."
+}

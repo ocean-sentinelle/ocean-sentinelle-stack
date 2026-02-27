@@ -1,0 +1,10 @@
+{
+  "text": "Le risque est élevé car la température est anormale.",
+  "claims": [
+    "La température est anormale",
+    "Le risque est élevé"
+  ],
+  "evidence_ids": [
+    "obs_temp_site_demo_01_2026-02-17"
+  ]
+}

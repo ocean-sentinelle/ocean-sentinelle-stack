@@ -1,0 +1,11 @@
+{
+  "name": "wordpress_readonly",
+  "type": "wordpress",
+  "mode": "read-only",
+  "env": [
+    "WP_BASE_URL",
+    "WP_APP_USER",
+    "WP_APP_PASSWORD"
+  ],
+  "notes": "Use App Password for readonly user."
+}

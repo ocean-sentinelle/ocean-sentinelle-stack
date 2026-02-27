@@ -1,0 +1,23 @@
+{
+  "id": "rag_ingest",
+  "name": "RAG Ingest (bootstrap)",
+  "version": "1.0.0",
+  "purpose": "Valider un document + produire des chunks (placeholder).",
+  "permissions": [
+    "vector.write",
+    "postgres.write"
+  ],
+  "truth_rules": "skills/_shared/truth_rules.md",
+  "logging": {
+    "format": "json",
+    "events": [
+      "start",
+      "end",
+      "error"
+    ]
+  },
+  "human_gate": {
+    "required": false,
+    "when": []
+  }
+}

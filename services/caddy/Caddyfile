@@ -1,0 +1,22 @@
+{
+}
+
+{$PRIMARY_DOMAIN}, {$SECONDARY_DOMAIN}, :80 {
+  encode zstd gzip
+
+  route {
+    handle /api/* {
+      reverse_proxy os_api:8080
+    }
+
+    handle /mcp/* {
+      reverse_proxy os_mcp:8787
+    }
+
+    handle {
+      root * /srv
+      try_files {path} /index.html
+      file_server
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "postgres_readonly",
+  "type": "postgres",
+  "mode": "read-only",
+  "env": [
+    "DATABASE_URL"
+  ],
+  "notes": "Use DB role limited to SELECT."
+}

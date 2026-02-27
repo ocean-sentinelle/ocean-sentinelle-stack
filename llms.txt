@@ -1,0 +1,18 @@
+OCEAN SENTINELLE (oceansentinelle.org / oceansentinelle.fr)
+Mission: Plateforme IA d’aide à la décision (ostréiculture/conchyliculture, acidification, climat, mortalité, dispositifs de soutien) en Nouvelle-Aquitaine.
+Truth rule: source/date/méthode/incertitude/version + statut (mesuré|inféré|simulé).
+
+Public documentation:
+- /documentation/
+- /methodes/
+- /aides/
+- /rapports/
+
+Limitations:
+- Pas de données individuelles publiées.
+- Les scénarios sont simulés (non prédictifs), avec incertitudes explicites.
+
+Governance:
+- Validation humaine pour publications et changements impactants.
+Last-updated: 2026-02-17
+Version: llms-v1.0.0

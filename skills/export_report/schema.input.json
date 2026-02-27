@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "zone_id": {
+      "type": "string"
+    },
+    "zone_type": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "key_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "indicators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "indicator_id": {
+            "type": "string"
+          },
+          "value": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "truth_status": {
+            "type": "string",
+            "enum": [
+              "measured",
+              "inferred",
+              "simulated"
+            ]
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "provenance": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "indicator_id",
+          "truth_status",
+          "confidence",
+          "provenance"
+        ]
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_name": {
+            "type": "string"
+          },
+          "source_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "source_name"
+        ]
+      }
+    },
+    "output_path": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "zone_id",
+    "zone_type",
+    "period",
+    "key_findings",
+    "indicators",
+    "limitations",
+    "sources",
+    "output_path"
+  ]
+}

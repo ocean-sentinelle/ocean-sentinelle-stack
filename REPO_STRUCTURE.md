@@ -1,0 +1,30 @@
+# Structure recommandée du dépôt (Ocean Sentinel)
+```
+ocean-sentinel/
+  AGENTS.md
+  llms.txt
+  docker-compose.yml
+  .env.example
+  services/
+    api/
+      Dockerfile
+      app/main.py
+    worker/
+      Dockerfile
+      worker.py
+      runtime/.gitkeep
+    mcp/
+      Dockerfile
+      README.md
+      app/main.py
+      app/policies/rbac.yaml
+      app/servers/*.json
+    nginx/nginx.conf
+    postgres/roles_readonly.sql
+  skills/
+    _shared/truth_rules.md
+    _shared/logging.md
+    rag_ingest/...
+    compute_indices/...
+    anti_hallucination_check/...
+```

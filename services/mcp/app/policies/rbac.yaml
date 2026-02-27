@@ -1,0 +1,15 @@
+roles:
+  reader:
+    allow: [postgres.read, vector.read, wordpress.read, logs.read]
+  analyst:
+    allow: [postgres.read, vector.read, wordpress.read, github.read]
+  publisher:
+    allow: [wordpress.write, github.write]
+    require_human_gate: true
+  ops:
+    allow: [logs.read, system.ops]
+    require_human_gate: true
+principles:
+  default: deny
+  secrets: never_expose
+  audit: log_who_what_when_where_result

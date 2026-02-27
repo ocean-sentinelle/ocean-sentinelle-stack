@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "doc_id": {
+      "type": "string"
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "chunk_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "chunk_id",
+          "text"
+        ]
+      }
+    },
+    "truth_status": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "inferred",
+        "simulated"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  },
+  "required": [
+    "doc_id",
+    "chunks",
+    "truth_status",
+    "confidence"
+  ]
+}

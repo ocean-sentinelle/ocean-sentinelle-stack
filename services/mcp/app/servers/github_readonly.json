@@ -1,0 +1,9 @@
+{
+  "name": "github_readonly",
+  "type": "github",
+  "mode": "read-only",
+  "env": [
+    "GITHUB_TOKEN"
+  ],
+  "notes": "Fine-grained token, read-only."
+}
