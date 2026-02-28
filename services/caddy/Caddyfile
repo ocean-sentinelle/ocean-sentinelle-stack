@@ -5,6 +5,10 @@
   encode zstd gzip
 
   route {
+    handle /metrics {
+      reverse_proxy os_api:8080
+    }
+
     handle /api/* {
       reverse_proxy os_api:8080
     }

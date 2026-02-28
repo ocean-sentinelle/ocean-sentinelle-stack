@@ -1,10 +1,13 @@
 from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.responses import Response
 from datetime import datetime, timedelta, timezone
 import math
 import os
 
 import psycopg
 from psycopg.rows import dict_row
+
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
 from .logging import log
 
@@ -97,6 +100,11 @@ async def access_log(request: Request, call_next):
     resp = await call_next(request)
     log("http_response", method=request.method, path=str(request.url.path), status=resp.status_code)
     return resp
+
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 @app.get("/health")
 @app.get("/api/v1/health")
